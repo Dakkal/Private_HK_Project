@@ -623,10 +623,6 @@ void CPlayer::Down()
 
 void CPlayer::OffSet()
 {
-	float fCameraShakeX = 0.f;
-	float fCameraShakeY = 0.f;
-	float fIntensity = 0.f;
-
 	float fOffSetminX = 390;
 	float fOffSetmaxX = 410.f;
 
@@ -639,8 +635,10 @@ void CPlayer::OffSet()
 
 	if (m_bCameraShaking)
 	{
-		fCameraShakeX = float(rand() % 21 - 10); 
-		fCameraShakeY = float(rand() % 21 - 10);
+		float fCameraShakeX = float(rand() % 20);
+		float fCameraShakeY = float(rand() % 20);
+		int	  iShakeCheck = rand() % 4;
+		float fIntensity = 0.f;
 		
 		if(m_bHitTime)
 			fIntensity = 0.6f;
@@ -657,13 +655,13 @@ void CPlayer::OffSet()
 			fCameraShakeX *= fIntensity;
 			fCameraShakeY *= fIntensity;
 
-			if (fOffSetminX > m_tInfo.fX + fCameraShakeX)
+			if (0 == iShakeCheck)
 				CScrollMgr::Get_Inst()->Set_ScrollX(fCameraShakeX);
-			if (fOffSetmaxX < m_tInfo.fX + fCameraShakeX)
+			if (1 == iShakeCheck)
 				CScrollMgr::Get_Inst()->Set_ScrollX(-fCameraShakeX);
-			if (fOffSetminY > m_tInfo.fY + fCameraShakeY)
+			if (2 == iShakeCheck)
 				CScrollMgr::Get_Inst()->Set_ScrollY(fCameraShakeY);
-			if (fOffSetmaxY < m_tInfo.fY + fCameraShakeY)
+			if (3 == iShakeCheck)
 				CScrollMgr::Get_Inst()->Set_ScrollY(-fCameraShakeY);
 		}
 
